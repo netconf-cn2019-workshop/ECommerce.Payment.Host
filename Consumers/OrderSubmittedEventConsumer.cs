@@ -17,7 +17,7 @@ namespace ECommerce.Payment.Host.Consumers
 
         public async Task Consume(ConsumeContext<OrderSubmittedEvent> context)
         {
-            _logger.LogInformation($"Initiating payment for customer {context.Message.CustomerId}, order {context.Message.OrderId} in total of {context.Message.Total}");
+            _logger.LogInformation($"正在初始化支付信息：由顾客 {context.Message.CustomerId} 提交的订单 {context.Message.OrderId}，总金额 {context.Message.Total}");
 
             await context.Send(new InitiatePaymentCommand() {
                 CorrelationId = context.Message.CorrelationId,

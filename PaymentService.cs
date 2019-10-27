@@ -19,7 +19,7 @@ namespace ECommerce.Payment.Host
         
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogDebug("Starting service bus");
+            _logger.LogDebug("正在启动服务总线");
 
             try
             {
@@ -27,18 +27,18 @@ namespace ECommerce.Payment.Host
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error while startin service bus.");
+                _logger.LogError(ex, "启动服务总线时发生错误");
                 throw;
             }
 
-            _logger.LogInformation("Running Payment microservice.");
+            _logger.LogInformation("支付 微服务已启动");
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
             await _busControl.StopAsync();
 
-            _logger.LogInformation("Payment microservice stopped.");
+            _logger.LogInformation("支付 微服务已停止");
         }
     }
 }

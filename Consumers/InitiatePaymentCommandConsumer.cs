@@ -18,7 +18,7 @@ namespace ECommerce.Payment.Host.Consumers
 
         public async Task Consume(ConsumeContext<InitiatePaymentCommand> context)
         {
-            _logger.LogInformation($"Processing payment for order {context.Message.OrderId} by customer {context.Message.CustomerId} in the amount of {context.Message.Total}");
+            _logger.LogInformation($"正在处理支付信息：由顾客 {context.Message.CustomerId} 提交的订单 {context.Message.OrderId}，总金额 {context.Message.Total}");
 
             try
             {
@@ -36,7 +36,7 @@ namespace ECommerce.Payment.Host.Consumers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while processing payment operation for order {context.Message.OrderId}");
+                _logger.LogError(ex, $"在处理订单 {context.Message.OrderId} 的支付操作时发生错误");
                 throw;
             }
         }
@@ -52,7 +52,7 @@ namespace ECommerce.Payment.Host.Consumers
                 // Sometimes payments over 500 fail :)
                 if (_count % 2 == 0)
                 {
-                    throw new InvalidOperationException("Payment gateway rejected pyment");
+                    throw new InvalidOperationException("支付请求被支付网关拒绝");
                 }
             }
         }
