@@ -6,7 +6,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: payment-host
-  namespace: ecommerce
+  labels:
+    app: payment-host
+    tier: backend
 spec:
   selector:
     matchLabels:
@@ -22,7 +24,7 @@ spec:
       containers:
         - name: payment-host
           image: $$REGISTRY_SERVERpayment-host:$$IMAGE_VERSION
-          imagePullPolicy: $$IMAGE_PULL_POLICY
+          imagePullPolicy: IfNotPresent
           env:
           - name: ASPNETCORE_ENVIRONMENT
             value: "$$ENVIRONMENT_NAME"
