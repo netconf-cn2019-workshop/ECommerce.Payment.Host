@@ -1,7 +1,6 @@
 ﻿using ECommerce.Common.Infrastructure.Messaging;
 using ECommerce.Payment.Host.Configuration;
 using ECommerce.Services.Common.Configuration;
-using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +22,6 @@ namespace ECommerce.Payment.Host
                .MinimumLevel.Override("System", LogEventLevel.Warning)
                .Enrich.FromLogContext()
                .WriteTo.Console()
-               .WriteTo.ApplicationInsights(TelemetryConfiguration.Active, TelemetryConverter.Traces)
                .CreateLogger();
 
             try
@@ -62,7 +60,6 @@ namespace ECommerce.Payment.Host
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddSingleton<IMessageCorrelationContextAccessor, MessageCorrelationContextAccessor>();
-                    services.AddApplicationInsightsTelemetry(hostContext.Configuration);
                     services.AddHostedService<PaymentService>();
                 })
                 .UseSerilog()
